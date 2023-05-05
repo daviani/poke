@@ -1,0 +1,49 @@
+<div *ngIf="poke" class="row">
+    <div class="col s12 m8 offset-m2">
+        <h2 class="header center">{{ poke.name }}</h2>
+        <div class="card horizontal hoverable">
+            <div class="card-image">
+                <img [src]="poke.picture" [alt]="poke.name">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <table class="bordered striped">
+                        <tbody>
+                        <tr>
+                            <td>Nom</td>
+                            <td><strong>{{ poke.name }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Points de vie</td>
+                            <td><strong>{{ poke.hp }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Dégâts</td>
+                            <td><strong>{{ poke.cp }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Types</td>
+                            <td>
+                                <span *ngFor="let type of poke.types" class="{{ type | pokeTypeColor }}">{{ type }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date de création</td>
+                            <td><em>{{ poke.created | date:"dd/MM/yyyy" }}</em></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="waves-effect waves-teal btn-flat">
+                        <a (click)="goBack()">Retour</a>
+                    </div>
+                    <div class="waves-effect waves-yellow btn-flat">
+                        <a (click)="goToEditPoke(poke)">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h4 *ngIf='!poke' class="center">Aucun poke à afficher !</h4>

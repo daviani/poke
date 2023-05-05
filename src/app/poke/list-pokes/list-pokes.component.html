@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col m4 s6"
+             *ngFor="let item of pokeList | async"
+        >
+            <div (click)="goToPoke(item)"
+                 class="card horizontal"
+                 pkmBorderCard
+            >
+                <div class="image-card">
+                    <img [src]="item.picture"
+                         alt={{item.name}}/>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{item.name}}</p>
+                        <p><small>{{item.created | date:"dd MM yyyy"}}</small></p>
+                        <span *ngFor="let type of item.types" class="{{ type  | pokeTypeColor}}">
+                            {{type}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
