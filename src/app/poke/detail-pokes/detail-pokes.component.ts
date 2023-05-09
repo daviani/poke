@@ -20,7 +20,11 @@ export class DetailPokesComponent implements OnInit {
         const pokeId: string | null = this.route.snapshot.paramMap.get('id')
 
         if (pokeId) {
-            this.poke = this.pokeService.getPokeById(+pokeId)
+            this.pokeService
+                .getPokeById(+pokeId)
+                .subscribe(
+                    poke => this.poke = poke
+                )
         }
     }
 
@@ -32,5 +36,5 @@ export class DetailPokesComponent implements OnInit {
         this.router.navigate(['edit/poke', poke.id])
     }
 
-    protected readonly Poke = Poke
+    protected Poke = Poke
 }

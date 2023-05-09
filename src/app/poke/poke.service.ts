@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { POKES } from './mock-poke'
 import { Poke } from './poke'
 import { HttpClient } from '@angular/common/http'
 import { catchError, Observable, tap, of } from 'rxjs'
@@ -13,19 +12,26 @@ export class PokeService {
         // return POKES
         return this.http.get<Poke[]>('api/POKES')
             .pipe(
-                tap((pokeList) => console.table(pokeList)),
-                catchError((error) => {
-                    console.error('error http', error)
-                    return of([])
-                })
+                tap((response) => this.log(response)),
+                catchError((error) => this.handleError(error, []))
             )
     }
 
+    getPokeById (pokeId: number): Observable<Poke | undefined> {
+        return this.http.get<Poke>(`api/POKES/${pokeId}`)
+            .pipe(
+                tap((response) => this.log(response)),
+                catchError((error) => this.handleError(error, undefined))
+            )
+    }
 
+    private log (response: Poke[] | Poke | undefined) {
+        console.table(response)
+    }
 
-    getPokeById (pokeId: number): Poke | undefined {
-        return POKES.find(poke => poke.id == pokeId)
-        // return this.http.get<Poke[]>('api/poke')
+    private handleError (error: Error, errorValue: any) {
+        console.error(error)
+        return of(errorValue)
     }
 
     getPokeTypeList (): string[] {

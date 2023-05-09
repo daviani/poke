@@ -6,7 +6,7 @@ import { PokeService } from '../poke.service'
 @Component({
     selector: 'app-edit-poke',
     template: `
-        <h2 class="center" >
+        <h2 class="center">
             edit-poke {{poke?.name}}
         </h2>
         <p class="center">
@@ -26,7 +26,11 @@ export class EditPokeComponent implements OnInit {
     ngOnInit () {
         const pokeId: string | null = this.route.snapshot.paramMap.get('id')
         if (pokeId) {
-            this.poke = this.pokeService.getPokeById(+pokeId)
+            this.pokeService
+                .getPokeById(+pokeId)
+                .subscribe(
+                    poke => this.poke = poke
+                )
         } else {
             this.poke = undefined
         }
