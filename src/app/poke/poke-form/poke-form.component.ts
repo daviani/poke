@@ -47,8 +47,14 @@ export class PokeFormComponent implements OnInit {
     }
 
     onSubmit () {
-        console.log('submit', this.poke.id)
-        this.router.navigate(['/poke', this.poke.id])
+        console.log('submit', this.poke)
+        this.pokeService.updatePoke(this.poke)
+            .subscribe(() => {
+                if(this.poke) {
+                    this.router.navigate(['/poke', this.poke.id])
+                }
+            })
+
     }
 
 }
