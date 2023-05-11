@@ -36,5 +36,13 @@ export class DetailPokesComponent implements OnInit {
         this.router.navigate(['edit/poke', poke.id])
     }
 
+    goDeletePoke (poke: Poke): void {
+        this.pokeService.deletePokeById(poke.id)
+            .subscribe(
+                () => this.goBack()
+            )
+
+    }
+
     protected Poke = Poke
 }

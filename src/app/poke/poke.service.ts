@@ -49,6 +49,14 @@ export class PokeService {
             )
     }
 
+    deletePokeById(pokeId: number): Observable<Poke | undefined> {
+        return this.http.delete<Poke>(`${this.url}${pokeId}`)
+            .pipe(
+                tap((response) => this.log(response)),
+                catchError((error) => this.handleError(error, null))
+            )
+    }
+
     getPokeTypeList (): string[] {
         return ['Plante', 'Poison', 'Feu', 'Eau', 'Insecte', 'Normal', 'Vol', 'Electrik', 'Fée', 'Psy']
     }
