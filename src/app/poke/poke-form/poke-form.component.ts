@@ -11,6 +11,7 @@ import { Router } from '@angular/router'
 export class PokeFormComponent implements OnInit {
     @Input() poke: Poke
     types: string[]
+    isAddForm: boolean = false
 
     constructor (
         private router: Router,
@@ -19,6 +20,8 @@ export class PokeFormComponent implements OnInit {
 
     ngOnInit () {
         this.types = this.pokeService.getPokeTypeList()
+        this.isAddForm = this.router.url.includes('add')
+        console.log(this.isAddForm, this.router.url)
     }
 
     hasType (type: string): boolean {
@@ -48,12 +51,22 @@ export class PokeFormComponent implements OnInit {
 
     onSubmit () {
         console.log('submit', this.poke)
-        this.pokeService.updatePoke(this.poke)
-            .subscribe(() => {
-                if(this.poke) {
-                    this.router.navigate(['/poke', this.poke.id])
-                }
-            })
+        if (this.isAddForm) {
+            this.pokeService.addPoke(this.poke)
+                .subscribe((poke: Poke) => {
+                    if (this.poke) {
+                        this.router.navigate(['/poke', poke.id])
+                    }
+                })
+        } else {
+            this.pokeService.updatePoke(this.poke)
+                .subscribe(() => {
+                    if (this.poke) {
+                        this.router.navigate(['/poke', this.poke.id])
+                    }
+                })
+
+        }
 
     }
 

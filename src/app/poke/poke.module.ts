@@ -6,13 +6,15 @@ import { ListPokesComponent } from './list-pokes/list-pokes.component'
 import { DetailPokesComponent } from './detail-pokes/detail-pokes.component'
 import { RouterModule, Routes } from '@angular/router'
 import { PokeService } from './poke.service'
-import { FormsModule } from '@angular/forms';
-import { PokeFormComponent } from './poke-form/poke-form.component';
-import { EditPokeComponent } from './edit-poke/edit-poke.component';
+import { FormsModule } from '@angular/forms'
+import { PokeFormComponent } from './poke-form/poke-form.component'
+import { EditPokeComponent } from './edit-poke/edit-poke.component'
+import { AddPokeComponent } from './add-poke/add-poke.component'
 
 const pokeRoutes: Routes = [
 
     { path: 'edit/poke/:id', component: EditPokeComponent },
+    { path: 'poke/add', component: AddPokeComponent },
     { path: 'pokes', component: ListPokesComponent },
     { path: 'poke/:id', component: DetailPokesComponent },
 ]
@@ -25,6 +27,7 @@ const pokeRoutes: Routes = [
         DetailPokesComponent,
         PokeFormComponent,
         EditPokeComponent,
+        AddPokeComponent,
     ],
     imports: [
         CommonModule,

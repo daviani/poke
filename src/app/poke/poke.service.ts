@@ -13,8 +13,14 @@ export class PokeService {
     }
 
     private handleError (error: Error, errorValue: any) {
-        console.error('err',error)
+        console.error('err', error)
         return of(errorValue)
+    }
+
+    private httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
     }
 
     constructor (private http: HttpClient) {}
@@ -37,19 +43,22 @@ export class PokeService {
     }
 
     updatePoke (poke: Poke): Observable<null> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        }
-        return this.http.put<Poke>(this.url, poke, httpOptions)
+        return this.http.put<Poke>(this.url, poke, this.httpOptions)
             .pipe(
                 tap((response) => this.log(response)),
                 catchError((error) => this.handleError(error, null))
             )
     }
 
-    deletePokeById(pokeId: number): Observable<Poke | undefined> {
+    addPoke (poke: Poke): Observable<Poke> {
+        return this.http.post<Poke>(this.url, poke, this.httpOptions)
+            .pipe(
+                tap((response) => this.log(response)),
+                catchError((error) => this.handleError(error, null))
+            )
+    }
+
+    deletePokeById (pokeId: number): Observable<Poke | undefined> {
         return this.http.delete<Poke>(`${this.url}${pokeId}`)
             .pipe(
                 tap((response) => this.log(response)),

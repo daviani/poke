@@ -18,6 +18,15 @@
                     </div>
                 </div>
 
+                <!-- Poke pictures -->
+                <div *ngIf="isAddForm" class="form-group">
+                    <label for="picture">Images</label>
+                    <input type="url" class="form-control" id="picture"
+                           [(ngModel)]="poke.picture" name="picture"
+                           #name="ngModel">
+
+                </div>
+
                 <!-- Poke hp -->
                 <div class="form-group">
                     <label for="hp">Point de vie</label>
